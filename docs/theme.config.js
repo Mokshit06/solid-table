@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-const title = "React Hooks for Data Fetching";
+const title = "Lightweight and extensible data tables for SolidJS";
 
 export default {
   projectLink: "https://github.com/mokshit06/solid-table",
