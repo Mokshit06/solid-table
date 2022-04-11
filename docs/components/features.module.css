@@ -11,8 +11,8 @@
 .feature h4 {
   margin: 0 0 0 0.5rem;
   margin-top: 0 !important;
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
   white-space: nowrap;
 }
 @media (max-width: 860px) {

@@ -9,7 +9,7 @@ import Bleed from 'nextra-theme-docs/bleed'
 {
 // wrapped with {} to mark it as javascript so mdx will not put it under a p tag
 }
-{<h1 className="text-center font-extrabold md:text-5xl mt-8">Solid Table</h1>}
+{<h1><span className="block text-center font-extrabold md:text-5xl mt-8">Solid Table</span></h1>}
 
 <Bleed><Features/></Bleed>
 
@@ -71,11 +71,27 @@ In this example, the `createTable` function accepts a core `table` instance and 
 
 ## Features
 
-#### Designed to have zero design.
+- ~14kb or less (with tree-shaking)
+- 100% TypeScript (but not required)
+- Headless (100% customizable, Bring-your-own-UI)
+- Auto out of the box, opt-in controllable state
+- Filters (column and global)
+- Sorting (multi-column, multi-directional)
+- Grouping & Aggregation
+- Pivoting (coming soon!)
+- Row Selection
+- Row Expansion
+- Column Visibility/Ordering/Pinning/Resizing
+- Table Splitting
+- Animatable
+- Virtualizable
+- Server-side/external data model support
+
+### Designed to have zero design.
 
 You want your tables to be powerful without sacrificing how they look! After all, what good is that nice theme you designed if you can't use it?! Solid Table is **headless** by design (it's just a hook), which means that you are in complete and full control of how your table renders down to the very last component, class or style.
 
-#### Powerful and Declarative
+### Powerful and Declarative
 
 Solid Table is a workhorse. It's built to materialize, filter, sort, group, aggregate, paginate and display massive data sets using a very small API surface. Just hitch your wagon (new or existing tables) to Solid Table and you'll be supercharged into productivity like never before.
 
