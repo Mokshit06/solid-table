@@ -1,0 +1,82 @@
+---
+title: React Hooks for Data Fetching
+---
+
+import Callout from 'nextra-theme-docs/callout'
+import Features from 'components/features'
+import Bleed from 'nextra-theme-docs/bleed'
+
+{
+// wrapped with {} to mark it as javascript so mdx will not put it under a p tag
+}
+{<h1 className="text-center font-extrabold md:text-5xl mt-8">Solid Table</h1>}
+
+<Bleed><Features/></Bleed>
+
+Solid Table is a collection of hooks for **building powerful tables and datagrid experiences**. These hooks are lightweight, composable, and ultra-extensible, but **do not render any markup or styles for you**. This effectively means that React Table is a "headless" UI library
+
+<Callout emoji="✅">
+  By acting as an ultra-smart table _utility_, Solid Table opens up the possibility for your tables to integrate into any existing theme, UI library or existing table markup.
+</Callout>
+
+<div className="mt-16 mb-20 text-center">
+  [Get Started](/docs/getting-started) · [Examples](/examples/basic) · [GitHub Repository](https://github.com/mokshit06/solid-table)
+</div>
+
+## Overview
+
+```jsx
+function Table() {
+  const instance = createTable(table, {
+    columns,
+    data
+  })
+
+  return (
+    <table {...instance.getTableProps()}>
+      <thead>
+        <For each={instance.getHeaderGroups()}>
+          {headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              <For each={headerGroup.headers}>
+                {header => (
+                  <th {...header.getHeaderProps()}>
+                    {header.renderHeader()}
+                  </th>
+                )}
+              </For>
+            </tr>
+          )}
+        </For>
+      </thead>
+      <tbody {...instance.getTableBodyProps()}>
+        <For each={instance.getPaginationRowModel().rows}>
+          {(row) => (
+            <tr {...row.getRowProps()}>
+              <For each={row.getVisibleCells()}>
+                {cell => (
+                  <td {...cell.getCellProps()}>{cell.renderCell()}</td>
+                )}
+              </For>
+            </tr>
+          )}
+        </For>
+      </tbody>
+    </table>
+  )
+}
+```
+
+In this example, the `createTable` function accepts a core `table` instance and an `options` object. `table` is an instance of `@tanstack/table-core`, that defines the structure of the table. `options` configures the data, columns and state of the table.
+
+## Features
+
+#### Designed to have zero design.
+
+You want your tables to be powerful without sacrificing how they look! After all, what good is that nice theme you designed if you can't use it?! Solid Table is **headless** by design (it's just a hook), which means that you are in complete and full control of how your table renders down to the very last component, class or style.
+
+#### Powerful and Declarative
+
+Solid Table is a workhorse. It's built to materialize, filter, sort, group, aggregate, paginate and display massive data sets using a very small API surface. Just hitch your wagon (new or existing tables) to Solid Table and you'll be supercharged into productivity like never before.
+
+And a lot [more](/docs/getting-started).

@@ -1,0 +1,47 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# API Options
+
+```js
+const instance = createTable(table, options)
+```
+
+## Parameters
+
+- `table`: an instance of core table, used to define the structure.
+- `options`: an object of options for this table.
+
+## Return Values
+
+- `instance`: a reactive instance of solid table which can be used to render the values
+
+## Options
+
+- `columns: Array<ColumnDef<_>>`: The core columns configuration object for the entire table.
+- `data: Array<any>`: The data array that you want to display on the table.
+- `state?: Partial<TableState>`
+- `initialState?: Partial<TableState>`
+  - `pagination: PaginationState`
+    - `pageSize: number = 10`: Determines the amount of rows on any given page
+    - `pageIndex: number = 0`: The index of the page that should be displayed
+    - `pageCount: number = -1`: Set to -1 if you don't know or don't want to present the number of pages available
+  - `sorting?: Array<ColumnSort>`
+    - `id: string`
+    - `desc: boolean`
+  - `grouping: Array<string>`
+  - `columnFilters?: ColumnFiltersState`
+  - `globalFilter?: any`
+  - `columnOrder?: ColumnOrderState`
+  - `columnPinning?: ColumnPinningState`
+  - `columnVisibility?: ColumnVisibilityState`
+  - `columnSizing?: ColumnSizing`
+- `onStateChange?: (updater: Updater<TableState>) => void`;
+- `debugAll?: boolean`
+- `debugTable?: boolean`
+- `debugHeaders?: boolean`
+- `debugColumns?: boolean`
+- `debugRows?: boolean`
+- `defaultColumn?: Partial<ColumnDef<_>>`
+- `getSubRows?: (originalRow: TGenerics['Row'], index: number) => Array<TGenerics['Row']>`
+- `getRowId?: (originalRow: TGenerics['Row'], index: number, parent?: Row<TGenerics>) => string`
+- `autoResetAll?: boolean`
