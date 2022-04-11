@@ -1,11 +1,30 @@
 {
-  "name": "solid-hack",
+  "name": "solid-table",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "description": "Lightweight, headless and extensible data tables for SolidJS",
+  "info": "Solid Table is a collection of hooks for building powerful tables and datagrid experiences. These hooks are lightweight, composable, and ultra-extensible, but do not render any markup or styles for you. This effectively means that Solid Table is a 'headless' UI library.By acting as an ultra-smart table utility, Solid Table opens up the possibility for your tables to integrate into any existing theme, UI library or existing table markup.",
+  "homepage": "https://solidjs-table.vercel.app",
+  "contributors": [
+    {
+      "name": "Mokshit Jain",
+      "email": "mokshitjain2006@gmail.com",
+      "url": "https://mokshitjain.co"
+    }
+  ],
+  "keywords": [
+    "solidhack",
+    "best_student_project"
+  ],
   "private": true,
   "workspaces": [
     "docs",
     "examples/*"
-  ]
+  ],
+  "dependencies": {
+    "solid-js": "^1.3.14"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
 }
