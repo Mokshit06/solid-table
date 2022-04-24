@@ -5,7 +5,7 @@ const title = "Lightweight and extensible data tables for SolidJS";
 export default {
   projectLink: "https://github.com/mokshit06/solid-table",
   docsRepositoryBase:
-    "https://github.com/mokshit06/solid-table/tree/main/docs/pages",
+    "https://github.com/mokshit06/solid-table/tree/alpha/docs/pages",
   titleSuffix: " – Solid Table",
   search: true,
   unstable_flexsearch: true,
