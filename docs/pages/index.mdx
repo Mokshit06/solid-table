@@ -27,9 +27,10 @@ Solid Table is a collection of hooks for **building powerful tables and datagrid
 
 ```jsx
 function Table() {
-  const instance = createTable(table, {
+  const instance = createTableInstance(table, {
     columns,
-    data
+    data,
+    getCoreRowModel: getCoreRowModelSync()
   })
 
   return (
