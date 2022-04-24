@@ -12,7 +12,7 @@ npm install @tanstack/solid-table
 
 ## Quick Start
 
-At the heart of every Solid Table is the `createTable` function and the table instance object that it returns. This instance object contains everything you'll need to build a table and interact with its state.
+At the heart of every Solid Table is the `createTableInstance` function and the table instance object that it returns. This instance object contains everything you'll need to build a table and interact with its state.
 
 <Callout emoji="💡">
   In Solid Table, **you the developer** are responsible for rendering the UI (markup and styles) of your table, Seact Table exists to make the process much easier to wire up your own table UI.
@@ -90,7 +90,7 @@ Now that we have our table structure, we can use the `instance` to make it come 
 
 ```jsx
 function Table() {
-  const instance = createTable(table, {
+  const instance = createTableInstance(table, {
     columns,
     data
   });
