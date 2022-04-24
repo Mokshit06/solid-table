@@ -1,9 +1,14 @@
-import { For } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import './App.css';
 import { makeData, Person } from './make-data';
-import { createCoreTable, createTable, sortRowsFn } from '../solid-table';
+import {
+  createTable,
+  createTableInstance,
+  getCoreRowModelSync,
+  getSortedRowModelSync,
+} from '@tanstack/solid-table';
 
-const table = createCoreTable<{ Row: Person }>();
+const table = createTable().setRowType<Person>();
 
 const columns = table.createColumns([
   table.createGroup({
@@ -37,14 +42,22 @@ const columns = table.createColumns([
 ]);
 
 function Table(props: { columns: any[]; data: any[] }) {
-  const instance = createTable(table, {
+  const [sorting, setSorting] = createSignal([]);
+  const instance = createTableInstance(table, {
     get data() {
       return props.data;
     },
     get columns() {
       return props.columns;
     },
-    sortRowsFn,
+    state: {
+      get sorting() {
+        return sorting();
+      },
+    },
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModelSync(),
+    getSortedRowModel: getSortedRowModelSync(),
   });
 
   // We don't want to render all 2000 rows for this example, so cap

@@ -22,6 +22,7 @@
     "examples/*"
   ],
   "dependencies": {
+    "@tanstack/table-core": "8.0.0-alpha.45",
     "solid-js": "^1.3.14"
   },
   "devDependencies": {

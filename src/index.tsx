@@ -1,51 +1,55 @@
 import {
-  createTableInstance,
-  init,
   AnyGenerics,
-  CreateTableFactoryOptions,
   Options,
   PartialKeys,
   Table,
-} from './table-core';
-import { createComputed, mergeProps } from 'solid-js';
+  createTableInstance as coreCreateTableInstance,
+  TableFeature,
+  createTableFactory,
+} from '@tanstack/table-core';
+import {
+  createComputed,
+  mergeProps,
+  createComponent,
+  createRenderEffect,
+} from 'solid-js';
 import { createStore } from 'solid-js/store';
 
-export * from './table-core';
-export { createCoreTable, createTableFactory };
+export * from '@tanstack/table-core';
 
 function render<TProps extends {}>(Comp: any, props: TProps) {
   if (!Comp) return null;
 
   if (typeof Comp === 'function') {
-    return <Comp {...props} />;
+    return createComponent(Comp, props);
   }
 
   return Comp;
 }
 
-const { createTable: createCoreTable, createTableFactory } = init({ render });
+export const createTable = createTableFactory({ render });
 
-export function createTable<TGenerics extends AnyGenerics>(
+export function createTableInstance<TGenerics extends AnyGenerics>(
   table: Table<TGenerics>,
   options: PartialKeys<
-    Omit<
-      Options<TGenerics>,
-      keyof CreateTableFactoryOptions<any, any, any, any>
-    >,
+    Omit<Options<TGenerics>, 'render'>,
     'state' | 'onStateChange'
   >
 ) {
   const resolvedOptions: Options<TGenerics> = mergeProps(
     {
-      ...(table.__options ?? {}),
+      ...table.options,
       state: {}, // Dummy state
       onStateChange: () => {}, // noop
       render,
+      mergeOptions(defaultOptions: TableFeature, options: Options<TGenerics>) {
+        return mergeProps(defaultOptions, options);
+      },
     },
     options
   );
 
-  const instance = createTableInstance<TGenerics>(resolvedOptions);
+  const instance = coreCreateTableInstance<TGenerics>(resolvedOptions);
   const [state, setState] = createStore(instance.initialState);
 
   createComputed(() => {
@@ -62,6 +66,10 @@ export function createTable<TGenerics extends AnyGenerics>(
         },
       });
     });
+  });
+
+  createRenderEffect(() => {
+    instance.willUpdate();
   });
 
   return instance;

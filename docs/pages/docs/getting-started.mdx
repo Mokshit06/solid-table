@@ -4,10 +4,10 @@ import Callout from 'nextra-theme-docs/callout'
 
 ## Installation
 
-Solid Table hasn't been published to NPM registry yet, but it will soon be available as `solid-table`, and you'll be able to add it like:
+Solid Table is now a part of TanStack, and is published to NPM as `@tanstack/solid-table`, and you'll be able to add it like:
 
 ```plaintext
-npm install solid-table
+npm install @tanstack/solid-table
 ```
 
 ## Quick Start
@@ -46,7 +46,7 @@ const data = [
 Now that we have some data, let's create a core table and define some columns to pass to the `createTable` function.
 
 ```jsx
-const table = createCoreTable();
+const table = createTable();
 
 const columns = table.createColumns([
   table.createDataColumn('col1', {
@@ -58,11 +58,11 @@ const columns = table.createColumns([
 ])
 ```
 
-## Using the `createTable` function
+## Using the `createTableInstance` function
 
 ```jsx
 function Table() {
-  const instance = createTable(table, {
+  const instance = createTableInstance(table, {
     columns,
     data
   });

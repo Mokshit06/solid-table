@@ -1,21 +1,20 @@
 import { createSignal, For, Show } from 'solid-js';
 import './App.css';
 import { makeData, Person } from './make-data';
-// A great library for fuzzy filtering/sorting items
-import matchSorter from 'match-sorter';
 import {
   Column,
-  columnFilterRowsFn,
   ColumnFiltersState,
-  createCoreTable,
   createTable,
-  globalFilterRowsFn,
-  paginateRowsFn,
+  createTableInstance,
   TableInstance,
-} from '../solid-table';
+  getCoreRowModelSync,
+  getColumnFilteredRowModelSync,
+  getGlobalFilteredRowModelSync,
+  getPaginationRowModel,
+} from '@tanstack/solid-table';
 import { createDebounce } from '@solid-primitives/debounce';
 
-const table = createCoreTable<{ Row: Person }>();
+const table = createTable().setRowType<Person>();
 
 const columns = table.createColumns([
   table.createGroup({
@@ -25,12 +24,14 @@ const columns = table.createColumns([
       table.createDataColumn('firstName', {
         cell: info => info.value,
         footer: props => props.column.id,
+        filterType: 'auto',
       }),
       table.createDataColumn(row => row.lastName, {
         id: 'lastName',
         cell: info => info.value,
         header: () => <span>Last Name</span>,
         footer: props => props.column.id,
+        filterType: 'auto',
       }),
     ],
   }),
@@ -41,6 +42,7 @@ const columns = table.createColumns([
       table.createDataColumn('age', {
         header: () => 'Age',
         footer: props => props.column.id,
+        filterType: 'auto',
       }),
       table.createGroup({
         header: 'More Info',
@@ -63,22 +65,11 @@ const columns = table.createColumns([
   }),
 ]);
 
-function Filter({
-  column,
-  instance,
-}: {
-  column: Column<any>;
-  instance: TableInstance<any>;
-}) {
+function Filter(props: { column: Column<any>; instance: TableInstance<any> }) {
   const firstValue = () =>
-    instance.getPreColumnFilteredRowModel().flatRows[0].values[column.id];
-  const debouncedOnInput = createDebounce(
-    (e: InputEvent & { currentTarget: HTMLInputElement }) => {
-      console.log(column.id, e.currentTarget.value);
-      column.setColumnFilterValue(e.currentTarget.value);
-    },
-    200
-  );
+    props.instance.getPreColumnFilteredRowModel().flatRows[0].values[
+      props.column.id
+    ];
 
   return (
     <Show
@@ -86,12 +77,12 @@ function Filter({
       fallback={
         <input
           type="text"
-          value={(column.getColumnFilterValue() ?? '') as string}
+          value={(props.column.getColumnFilterValue() ?? '') as string}
           onInput={e => {
-            column.setColumnFilterValue(e.currentTarget.value);
+            props.column.setColumnFilterValue(e.currentTarget.value);
           }}
           placeholder={`Search... (${
-            column.getPreFilteredUniqueValues().size
+            props.column.getPreFilteredUniqueValues().size
           })`}
           className="w-36 border shadow rounded"
         />
@@ -100,34 +91,36 @@ function Filter({
       <div className="flex space-x-2">
         <input
           type="number"
-          min={Number(column.getPreFilteredMinMaxValues()[0])}
-          max={Number(column.getPreFilteredMinMaxValues()[1])}
+          min={Number(props.column.getPreFilteredMinMaxValues()[0])}
+          max={Number(props.column.getPreFilteredMinMaxValues()[1])}
           value={
-            ((column.getColumnFilterValue() as string[])?.[0] ?? '') as string
+            ((props.column.getColumnFilterValue() as string[])?.[0] ??
+              '') as string
           }
           onInput={e =>
-            column.setColumnFilterValue((old: string) => [
+            props.column.setColumnFilterValue((old: string) => [
               e.currentTarget.value,
               old?.[1],
             ])
           }
-          placeholder={`Min (${column.getPreFilteredMinMaxValues()[0]})`}
+          placeholder={`Min (${props.column.getPreFilteredMinMaxValues()[0]})`}
           className="w-24 border shadow rounded"
         />
         <input
           type="number"
-          min={Number(column.getPreFilteredMinMaxValues()[0])}
-          max={Number(column.getPreFilteredMinMaxValues()[1])}
+          min={Number(props.column.getPreFilteredMinMaxValues()[0])}
+          max={Number(props.column.getPreFilteredMinMaxValues()[1])}
           value={
-            ((column.getColumnFilterValue() as string[])?.[1] ?? '') as string
+            ((props.column.getColumnFilterValue() as string[])?.[1] ??
+              '') as string
           }
           onInput={e =>
-            column.setColumnFilterValue((old: string) => [
+            props.column.setColumnFilterValue((old: string) => [
               old?.[0],
               e.currentTarget.value,
             ])
           }
-          placeholder={`Max (${column.getPreFilteredMinMaxValues()[1]})`}
+          placeholder={`Max (${props.column.getPreFilteredMinMaxValues()[1]})`}
           className="w-24 border shadow rounded"
         />
       </div>
@@ -136,12 +129,12 @@ function Filter({
 }
 
 function App() {
-  const data = makeData(100000);
+  const data = makeData(10);
   const [columnFilters, setColumnFilters] = createSignal<ColumnFiltersState>(
     []
   );
   const [globalFilter, setGlobalFilter] = createSignal('');
-  const instance = createTable(table, {
+  const instance = createTableInstance(table, {
     data,
     columns,
     state: {
@@ -154,9 +147,10 @@ function App() {
     },
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    columnFilterRowsFn: columnFilterRowsFn,
-    globalFilterRowsFn: globalFilterRowsFn,
-    paginateRowsFn: paginateRowsFn,
+    getCoreRowModel: getCoreRowModelSync(),
+    getColumnFilteredRowModel: getColumnFilteredRowModelSync(),
+    getGlobalFilteredRowModel: getGlobalFilteredRowModelSync(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (

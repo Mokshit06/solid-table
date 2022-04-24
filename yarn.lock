@@ -446,10 +446,17 @@
   resolved "https://registry.yarnpkg.com/@solid-primitives/debounce/-/debounce-1.2.0.tgz#20ba656e34c36bfb86329841273b11e2279d226d"
   integrity sha512-DehTyuYwkDhFCcVuWDhKIlRwZtI2aAjV/WLR6RdoPII3Sm+rd4Ndt9S7xZeKGh1GySGeA60dGAQNIjUCVclGsQ==
 
-"@tanstack/table-core@8.0.0-alpha.16":
-  version "8.0.0-alpha.16"
-  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.0.0-alpha.16.tgz#7cf0d54572faf551e64564ca80c64eb6df89b725"
-  integrity sha512-MQFaDyI2gUnB5yQFCJ0SgSB+aCUvo4GDF0uQKLkiOituoseDZFF+X3OCSTJ+OJZIZDCBnl2RROVZA+wfAY+QkA==
+"@tanstack/solid-table@^8.0.0-alpha.45":
+  version "8.0.0-alpha.45"
+  resolved "https://registry.yarnpkg.com/@tanstack/solid-table/-/solid-table-8.0.0-alpha.45.tgz#9089d80817d5d075863e3056b18c125f8dcc601e"
+  integrity sha512-DWBeHzkjIlIfrLJDGiRhUkGdgc21lLChIxUOsjlIHm/kwnRDlxy0Z55HwYUOOUbm6/Zzz31M/JNcX7GnjTIEGQ==
+  dependencies:
+    "@tanstack/table-core" "8.0.0-alpha.45"
+
+"@tanstack/table-core@8.0.0-alpha.45":
+  version "8.0.0-alpha.45"
+  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.0.0-alpha.45.tgz#a61cad5c14824680729057e5857b7b087de09c43"
+  integrity sha512-Rq7xwOMjwapCIQM4rUTm8J3J+YGjY6jnFbx1q3xR6AOML8170ad1GY6cX5MXTmrxbzAoTIR452rqRI1pZTMw1w==
 
 "@types/acorn@^4.0.0":
   version "4.0.6"
