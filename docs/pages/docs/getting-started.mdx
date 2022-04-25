@@ -64,7 +64,8 @@ const columns = table.createColumns([
 function Table() {
   const instance = createTableInstance(table, {
     columns,
-    data
+    data,
+    getCoreRowModel: getCoreRowModelSync()
   });
 
   return (
@@ -92,7 +93,8 @@ Now that we have our table structure, we can use the `instance` to make it come 
 function Table() {
   const instance = createTableInstance(table, {
     columns,
-    data
+    data,
+    getCoreRowModel: getCoreRowModelSync()
   });
 
   return (

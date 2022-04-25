@@ -12,7 +12,6 @@ import {
   getGlobalFilteredRowModelSync,
   getPaginationRowModel,
 } from '@tanstack/solid-table';
-import { createDebounce } from '@solid-primitives/debounce';
 
 const table = createTable().setRowType<Person>();
 
